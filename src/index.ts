@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { registrationRouter } from './routes/registration-route';
+import { registrationRouter } from './routes/registration.route';
 import { runDb } from './helpers/db';
 
 //create express app
