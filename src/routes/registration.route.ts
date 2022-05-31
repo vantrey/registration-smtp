@@ -21,6 +21,7 @@ registrationRouter.post(
   async (req: Request, res: Response) => {
     try {
       const { email, password, login } = req.body;
+      console.log(req.body);
 
       const result = await authorizationService.registration({ login, email, password });
 
@@ -34,7 +35,7 @@ registrationRouter.post(
       res.sendStatus(200);
     } catch (error) {
       console.log(error);
-      res.sendStatus(500);
+      res.status(500).json((error as Error).message);
     }
   }
 );

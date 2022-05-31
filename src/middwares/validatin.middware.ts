@@ -18,12 +18,6 @@ export const inputValidationMiddleware = (req: Request, res: Response, next: Nex
   }
 };
 
-export const loginValidation = body('login')
-  .trim()
-  .isLength({ min: 2, max: 30 })
-  .withMessage('email is required and its length should be 2-30 symbols');
-export const emailValidation = body('email')
-  .trim()
-  .isLength({ min: 2, max: 15 })
-  .withMessage('password is required and its length should be 2-15symbols');
-export const passwordValidation = body('password').isLength({ min: 2, max: 100 });
+export const loginValidation = body('login').trim().isLength({ min: 2, max: 100 });
+export const emailValidation = body('email').trim().isLength({ min: 2, max: 100 });
+export const passwordValidation = body('password').trim().isLength({ min: 2, max: 100 });
