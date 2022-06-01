@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { registrationRouter } from './routes/registration.route';
 import { runDb } from './helpers/runDb';
+import { clearAllData } from './routes/clearAllData.route';
 
 //create express app
 const app = express();
@@ -17,6 +18,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api', registrationRouter);
+app.use('/api/testing', clearAllData);
 //start app
 
 const startApp = async () => {
