@@ -6,11 +6,14 @@ export interface IUser {
   login: string;
   password: string;
   isConfirmed: boolean;
+  code: string;
 }
 
-export type UserPayloadType = Omit<IUser, 'id' | 'isConfirmed'>;
+export type UserPayloadType = Omit<IUser, 'id' | 'isConfirmed' | 'code'>;
 
-export interface IFindUserPayload {
+interface IFindUserPayload {
   login: string;
   email: string;
 }
+
+export type FindUserPayloadType = Partial<IFindUserPayload>;

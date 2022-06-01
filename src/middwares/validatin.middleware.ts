@@ -21,3 +21,4 @@ export const inputValidationMiddleware = (req: Request, res: Response, next: Nex
 export const loginValidation = body('login').trim().isLength({ min: 2, max: 100 });
 export const emailValidation = body('email').trim().isLength({ min: 2, max: 100 });
 export const passwordValidation = body('password').trim().isLength({ min: 2, max: 100 });
+export const codeValidation = body('code').trim().isLength({ min: 2, max: 100 });

@@ -1,41 +1,119 @@
 import { Request, Response, Router } from 'express';
 import { sendEmailService } from '../services/sendEmail.service';
 import {
+  codeValidation,
   emailValidation,
   inputValidationMiddleware,
   loginValidation,
   passwordValidation,
-} from '../middwares/validatin.middware';
+} from '../middwares/validatin.middleware';
 import { authorizationService } from '../services/authorization.service';
-import { userExistingCheckMiddleware } from '../middwares/userExistingCheck.middware';
+import { emailOrLoginExistingCheckMiddleware } from '../middwares/emailOrLoginExistingCheck.middleware';
+import { getErrorResponse } from '../helpers/getErrorResponse';
+import { resendEmailValidationMiddleware } from '../middwares/resendEmailValidation.middleware';
+import { jwtUtility } from '../helpers/jwt-utility';
 
 export const registrationRouter = Router({});
 
-registrationRouter.post(
-  '/registration',
-  loginValidation,
-  emailValidation,
-  passwordValidation,
-  inputValidationMiddleware,
-  userExistingCheckMiddleware,
-  async (req: Request, res: Response) => {
+registrationRouter
+  .post(
+    '/registration',
+    loginValidation,
+    emailValidation,
+    passwordValidation,
+    inputValidationMiddleware,
+    emailOrLoginExistingCheckMiddleware,
+    async (req: Request, res: Response) => {
+      try {
+        const { email, password, login } = req.body;
+        const createdUser = await authorizationService.registration({ login, email, password });
+
+        if (!createdUser) {
+          res.status(500).send('something went wrong');
+
+          return;
+        }
+
+        await sendEmailService.sendEmail(email, createdUser.code);
+        res.sendStatus(200);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json((error as Error).message);
+      }
+    }
+  )
+  .post('/registration-confirm', codeValidation, inputValidationMiddleware, async (req, res) => {
     try {
-      const { email, password, login } = req.body;
-      console.log(req.body);
+      const { code } = req.body;
 
-      const result = await authorizationService.registration({ login, email, password });
+      const codeIsConfirmed = await authorizationService.confirmRegistration(code);
 
-      if (!result) {
-        res.status(500).send('something went wrong');
+      if (!codeIsConfirmed) {
+        res.status(400).json(
+          getErrorResponse([
+            {
+              field: 'code',
+              message: `Wrong code`,
+            },
+          ])
+        );
 
         return;
       }
 
-      await sendEmailService.sendEmail(email);
       res.sendStatus(200);
     } catch (error) {
       console.log(error);
       res.status(500).json((error as Error).message);
     }
-  }
-);
+  })
+  .post(
+    '/send-registration-email',
+    emailValidation,
+    inputValidationMiddleware,
+    resendEmailValidationMiddleware,
+    async (req, res) => {
+      try {
+        const { email } = req.body;
+
+        const updatedCode = await authorizationService.updateUserCode(email);
+
+        if (!updatedCode) {
+          res.status(400).json(getErrorResponse([{ field: 'code', message: 'user doesnt exist' }]));
+
+          return;
+        }
+
+        await sendEmailService.sendEmail(email, updatedCode);
+        res.sendStatus(200);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json((error as Error).message);
+      }
+    }
+  )
+  .post(
+    '/login',
+    passwordValidation,
+    loginValidation,
+    inputValidationMiddleware,
+    async (req, res) => {
+      try {
+        const { login, password } = req.body;
+
+        const token = await authorizationService.authorizeUser(login, password);
+
+        if (!token) {
+          res.sendStatus(401);
+
+          return;
+        }
+        let userid = await jwtUtility.extractUserIdFromToken(token);
+        console.log('userId', userid?.toString());
+        res.status(200).json({ token });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json((error as Error).message);
+      }
+    }
+  );

@@ -30,14 +30,14 @@ class SendEmailService {
       },
     });
   }
-  async sendEmail(email: string) {
+  async sendEmail(email: string, code: string) {
     await this.transporter.sendMail({
       from: 'autotest test', // sender address
       to: `${email}`, // list of receivers
       subject: 'Confirm registration', // Subject line
       html: `<div>
                 <h1>HI MEN, YO</h1>
-                <a href="https://personal-page.staging.it-incubator.ru/?code=123tokadfbdbfd1234qer3q4" rel="noopener noreferrer" target="_blank">
+                <a href="https://personal-page.staging.it-incubator.ru/?code=${code}" rel="noopener noreferrer" target="_blank">
                 https://personal-page.staging.it-incubator.ru/#/login
                 </a>
             </div>

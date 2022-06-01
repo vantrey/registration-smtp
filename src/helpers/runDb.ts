@@ -1,8 +1,9 @@
 import { MongoClient } from 'mongodb';
 import { IUser } from '../types/usersTypres';
+import { settings } from '../settings';
 
-// const mongoUri = process.env.mongoURI || "mongodb://0.0.0.0:27017";
-const mongoUri = 'mongodb+srv://ivan:123456QWERTYasdfgh@cluster0.czpft.mongodb.net/lessons';
+const mongoUri = settings.MONGO_URI;
+
 export const client = new MongoClient(mongoUri);
 const connection = client.db('lessons');
 

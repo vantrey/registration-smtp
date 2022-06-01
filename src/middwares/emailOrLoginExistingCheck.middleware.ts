@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
 import { getErrorResponse } from '../helpers/getErrorResponse';
 import { authorizationService } from '../services/authorization.service';
 
-export const userExistingCheckMiddleware = async (
+export const emailOrLoginExistingCheckMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
