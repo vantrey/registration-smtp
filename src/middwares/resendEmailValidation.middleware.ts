@@ -15,7 +15,7 @@ export const resendEmailValidationMiddleware = async (
     res.status(400).json(
       getErrorResponse([
         {
-          field: email,
+          field: 'email',
           message: `User doesnt exist or already confirmed`,
         },
       ])
