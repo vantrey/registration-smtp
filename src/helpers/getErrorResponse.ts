@@ -5,7 +5,6 @@ export interface IErrorMessage {
 
 export const getErrorResponse = (errors: IErrorMessage[]) => {
   return {
-    resultCode: 1,
     errorsMessages: errors,
   };
 };
