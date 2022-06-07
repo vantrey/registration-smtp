@@ -35,7 +35,7 @@ registrationRouter
         }
 
         await sendEmailService.sendEmail(email, createdUser.code);
-        res.sendStatus(200);
+        res.sendStatus(204);
       } catch (error) {
         console.log(error);
         res.status(500).json((error as Error).message);
@@ -65,7 +65,7 @@ registrationRouter
           return;
         }
 
-        res.sendStatus(200);
+        res.sendStatus(204);
       } catch (error) {
         console.log(error);
         res.status(500).json((error as Error).message);
@@ -90,7 +90,7 @@ registrationRouter
         }
 
         await sendEmailService.sendEmail(email, updatedCode);
-        res.sendStatus(200);
+        res.sendStatus(204);
       } catch (error) {
         console.log(error);
         res.status(500).json((error as Error).message);
@@ -107,7 +107,7 @@ registrationRouter
         const { login, password } = req.body;
 
         const token = await authorizationService.authorizeUser(login, password);
-
+        200;
         if (!token) {
           res.sendStatus(401);
 
