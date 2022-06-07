@@ -42,33 +42,38 @@ registrationRouter
       }
     }
   )
-  .post('/registration-confirm', codeValidation, inputValidationMiddleware, async (req, res) => {
-    try {
-      const { code } = req.body;
-
-      const codeIsConfirmed = await authorizationService.confirmRegistration(code);
-
-      if (!codeIsConfirmed) {
-        res.status(400).json(
-          getErrorResponse([
-            {
-              field: 'code',
-              message: `Wrong code`,
-            },
-          ])
-        );
-
-        return;
-      }
-
-      res.sendStatus(200);
-    } catch (error) {
-      console.log(error);
-      res.status(500).json((error as Error).message);
-    }
-  })
   .post(
-    '/send-registration-email',
+    '/registration-confirmation',
+    codeValidation,
+    inputValidationMiddleware,
+    async (req, res) => {
+      try {
+        const { code } = req.body;
+
+        const codeIsConfirmed = await authorizationService.confirmRegistration(code);
+
+        if (!codeIsConfirmed) {
+          res.status(400).json(
+            getErrorResponse([
+              {
+                field: 'code',
+                message: `Wrong code`,
+              },
+            ])
+          );
+
+          return;
+        }
+
+        res.sendStatus(200);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json((error as Error).message);
+      }
+    }
+  )
+  .post(
+    '/registration-email-resending',
     emailValidation,
     inputValidationMiddleware,
     resendEmailValidationMiddleware,
@@ -93,7 +98,7 @@ registrationRouter
     }
   )
   .post(
-    '/login',
+    '/auth/login',
     passwordValidation,
     loginValidation,
     inputValidationMiddleware,
