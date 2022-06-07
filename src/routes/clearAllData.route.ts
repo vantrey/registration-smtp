@@ -3,7 +3,7 @@ import { testingRepository } from '../repositories/testing-repository';
 
 export const clearAllData = Router({});
 
-clearAllData.post('/clear-all-data', async (req: Request, res: Response) => {
+clearAllData.delete('/all-data', async (req: Request, res: Response) => {
   try {
     const isCleared = await testingRepository.clearAllData();
     if (isCleared) {
