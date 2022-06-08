@@ -2,7 +2,7 @@ import {
   registrationRepository,
   RegistrationRepository,
 } from '../repositories/registration-repository';
-import { FindUserPayloadType, IUser, UserPayloadType } from '../types/usersTypres';
+import { FindUserPayloadType, IUser, UserPayloadType } from '../types/usersTypes';
 import bcrypt from 'bcrypt';
 import { ObjectId } from 'mongodb';
 import { v4 as uuidv4 } from 'uuid';

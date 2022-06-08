@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb';
-import { FindUserPayloadType, IUser } from '../types/usersTypres';
+import { FindUserPayloadType, IUser } from '../types/usersTypes';
 import { usersCollection } from '../helpers/runDb';
 
 export class RegistrationRepository {

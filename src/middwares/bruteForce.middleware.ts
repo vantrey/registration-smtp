@@ -4,5 +4,9 @@ export const bruteForceMiddleware = async (req: Request, res: Response, next: Ne
   const ip = req.ip;
   console.log('req.ip = ', ip);
   console.log('req.connection.remoteAddress = ', req.connection.remoteAddress);
+
+  const endpoint = req.url;
+  console.log(endpoint);
+
   next();
 };

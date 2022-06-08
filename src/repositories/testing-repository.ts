@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb';
-import { IUser } from '../types/usersTypres';
+import { IUser } from '../types/usersTypes';
 import { usersCollection } from '../helpers/runDb';
 
 export class TestingRepository {
