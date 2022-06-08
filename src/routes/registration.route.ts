@@ -12,12 +12,14 @@ import { emailOrLoginExistingCheckMiddleware } from '../middwares/emailOrLoginEx
 import { getErrorResponse } from '../helpers/getErrorResponse';
 import { resendEmailValidationMiddleware } from '../middwares/resendEmailValidation.middleware';
 import { jwtUtility } from '../helpers/jwt-utility';
+import { bruteForceMiddleware } from '../middwares/bruteForce.middleware';
 
 export const registrationRouter = Router({});
 
 registrationRouter
   .post(
     '/registration',
+    bruteForceMiddleware,
     loginValidation,
     emailValidation,
     passwordValidation,
