@@ -4,23 +4,12 @@ import bodyParser from 'body-parser';
 import { registrationRouter } from './routes/registration.route';
 import { runDb } from './helpers/runDb';
 import { clearAllData } from './routes/clearAllData.route';
-import rateLimit from 'express-rate-limit';
 
 //create express app
 const app = express();
 
-const limiter = rateLimit({
-  windowMs: 100000, // 15 minutes
-  max: 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  statusCode: 429,
-  message: '!@#!@#!@#!@#!@#!@#!@#!@#',
-});
-
 app.use(cors());
 app.use(bodyParser.json());
-app.use(limiter);
 
 const port = process.env.PORT || 5005;
 
