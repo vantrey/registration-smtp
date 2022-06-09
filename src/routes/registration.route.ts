@@ -101,7 +101,7 @@ registrationRouter
     }
   )
   .post(
-    '/auth/login',
+    '/login',
     bruteForceMiddleware,
     passwordValidation,
     loginValidation,
