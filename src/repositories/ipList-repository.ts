@@ -17,15 +17,17 @@ export class IpListRepository {
     return result.acknowledged;
   };
 
-  updateAttemptCount = async (payload: IUpdateIpData, attemptCount: number) => {
-    const result = await this.ipListCollection.updateOne(payload, { $set: { attemptCount } });
+  updateAttemptCount = async (payload: IUpdateIpData, relativeAttemptCount: number) => {
+    const result = await this.ipListCollection.updateOne(payload, {
+      $set: { relativeAttemptCount },
+    });
 
     return result.acknowledged;
   };
 
   resetIpData = async (payload: IUpdateIpData) => {
     const result = await this.ipListCollection.updateOne(payload, {
-      $set: { bannedDate: null, requestDate: new Date(), attemptCount: 1 },
+      $set: { bannedDate: null, requestDate: new Date(), relativeAttemptCount: 1 },
     });
 
     return result.acknowledged;
