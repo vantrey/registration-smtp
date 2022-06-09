@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 import { IUser } from '../types/usersTypes';
 import { settings } from '../settings';
+import { IIpData } from '../types/ipListTypes';
 
 const mongoUri = settings.MONGO_URI;
 
@@ -8,7 +9,7 @@ export const client = new MongoClient(mongoUri);
 const connection = client.db('lessons');
 
 export const usersCollection = connection.collection<IUser>('usersHW5');
-export const ipListCollection = connection.collection<IUser>('ipListHW5');
+export const ipListCollection = connection.collection<IIpData>('ipListHW5');
 
 export async function runDb() {
   try {

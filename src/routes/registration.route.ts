@@ -76,6 +76,7 @@ registrationRouter
   )
   .post(
     '/registration-email-resending',
+    bruteForceMiddleware,
     emailValidation,
     inputValidationMiddleware,
     resendEmailValidationMiddleware,
@@ -101,6 +102,7 @@ registrationRouter
   )
   .post(
     '/auth/login',
+    bruteForceMiddleware,
     passwordValidation,
     loginValidation,
     inputValidationMiddleware,

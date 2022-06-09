@@ -18,7 +18,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello: World!!!!');
 });
 
-app.use('/api', registrationRouter);
+app.use('/api/auth', registrationRouter);
 app.use('/api/testing', clearAllData);
 //start app
 
