@@ -35,13 +35,14 @@ class SendEmailService {
       from: 'autotest test', // sender address
       to: `${email}`, // list of receivers
       //text: `link to restore https://personal-page.staging.it-incubator.ru/?code=${code}`,
-      html: `<div>
+      /*html: `<div>
                 <h1>HI MEN, YO</h1>
                 <a href="https://personal-page.staging.it-incubator.ru/?code=${code}" rel="noopener noreferrer" target="_blank">
                 https://personal-page.staging.it-incubator.ru/#/login
                 </a>
             </div>
-`,
+`,*/
+      html: `<div>https://personal-page.staging.it-incubator.ru/?code=${code}<div>`,
     });
   }
 }

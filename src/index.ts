@@ -4,9 +4,12 @@ import bodyParser from 'body-parser';
 import { registrationRouter } from './routes/registration.route';
 import { runDb } from './helpers/runDb';
 import { clearAllData } from './routes/clearAllData.route';
+import cookieParser from 'cookie-parser';
 
 //create express app
 const app = express();
+app.use(cookieParser());
+
 app.set('trust proxy', true);
 
 app.use(cors());

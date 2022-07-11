@@ -119,7 +119,18 @@ registrationRouter
         }
         let userid = await jwtUtility.extractUserIdFromToken(token);
         console.log('userId', userid?.toString());
-        res.status(200).json({ token });
+
+        const cookie = req.headers;
+        console.log('cookie =', cookie);
+        console.log('Cookies: ', req.cookies);
+
+        res.cookie('refreshToken', token, {
+          maxAge: 100000,
+          httpOnly: true,
+          secure: true,
+        });
+
+        res.status(200).json({ accessToken: token });
       } catch (error) {
         console.log(error);
         res.status(500).json((error as Error).message);
