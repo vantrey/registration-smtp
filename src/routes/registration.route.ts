@@ -110,27 +110,27 @@ registrationRouter
       try {
         const { login, password } = req.body;
 
-        const token = await authorizationService.authorizeUser(login, password);
+        /*const token = await authorizationService.authorizeUser(login, password);
         200;
         if (!token) {
           res.sendStatus(401);
 
           return;
-        }
-        let userid = await jwtUtility.extractUserIdFromToken(token);
-        console.log('userId', userid?.toString());
+        }*/
+        //let userid = await jwtUtility.extractUserIdFromToken(token);
+        //console.log('userId', userid?.toString());
 
         const cookie = req.headers;
         console.log('cookie =', cookie);
         console.log('Cookies: ', req.cookies);
 
-        res.cookie('refreshToken', token, {
+        res.cookie('refreshToken', 'token', {
           maxAge: 100000,
           httpOnly: true,
           secure: false,
         });
 
-        res.status(200).json({ accessToken: token });
+        res.status(200).json({ accessToken: 'tok.en' });
       } catch (error) {
         console.log(error);
         res.status(500).json((error as Error).message);
