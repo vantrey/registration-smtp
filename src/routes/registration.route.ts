@@ -124,7 +124,7 @@ registrationRouter
         console.log('cookie =', cookie);
         console.log('Cookies: ', req.cookies);
 
-        res.cookie('refreshToken', 'token', {
+        res.cookie('refreshToken', 'tok.en', {
           maxAge: 100000,
           httpOnly: true,
           secure: false,
