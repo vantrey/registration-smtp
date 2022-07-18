@@ -127,7 +127,7 @@ registrationRouter
         res.cookie('refreshToken', token, {
           maxAge: 100000,
           httpOnly: true,
-          secure: true,
+          secure: false,
         });
 
         res.status(200).json({ accessToken: token });
