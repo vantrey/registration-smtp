@@ -6,7 +6,7 @@ import { IIpData } from '../types/ipListTypes';
 const mongoUri = settings.MONGO_URI;
 
 export const client = new MongoClient(mongoUri);
-const connection = client.db('lessons');
+const connection = client.db('public_db');
 
 export const usersCollection = connection.collection<IUser>('usersHW5');
 export const ipListCollection = connection.collection<IIpData>('ipListHW5');

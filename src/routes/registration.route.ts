@@ -104,11 +104,11 @@ registrationRouter
     '/login',
     bruteForceMiddleware,
     passwordValidation,
-    loginValidation,
+    //loginValidation,
     inputValidationMiddleware,
     async (req, res) => {
       try {
-        const { login, password } = req.body;
+        const { loginOrEmail: login, password } = req.body;
 
         /*const token = await authorizationService.authorizeUser(login, password);
         200;

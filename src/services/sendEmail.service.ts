@@ -1,8 +1,9 @@
 import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import { settings } from '../settings';
 
-let smtp_login = process.env.SMPT_LOGIN;
-let smtp_password = process.env.SMPT_PASSWORD;
+let smtp_login = settings.smtp_login;
+let smtp_password = settings.smtp_password;
 
 /*let transporter = nodemailer.createTransport({
   service: 'gmail',
